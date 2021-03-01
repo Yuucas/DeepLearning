@@ -1,4 +1,4 @@
-  Neural Network & Deep Learning Course
+Neural Network & Deep Learning Course
 
 Laboratory practices at UNIPD
 
