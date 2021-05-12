@@ -7,4 +7,4 @@ with an emphasis on deep learning and computational modeling
 
 -----------------------------------------------------------------------
 
-Practical projects applied related to deep learning techniques
+Deep Learning Examples include deep learning sample projects that I practice by myself.
