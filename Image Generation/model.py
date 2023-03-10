@@ -5,10 +5,7 @@ from math import log2
 
 """
 Factors is used in Discrmininator and Generator for how much
-the channels should be multiplied and expanded for each layer,
-so specifically the first 5 layers the channels stay the same,
-whereas when we increase the img_size (towards the later layers)
-we decrease the number of chanels by 1/2, 1/4, etc.
+the channels should be multiplied and expanded for each layer.
 """
 factors = [1, 1, 1, 1, 1 / 2, 1 / 4, 1 / 8, 1 / 16, 1 / 32]
 
@@ -203,19 +200,3 @@ class Discriminator(nn.Module):
 
         out = self.minibatch_std(out)
         return self.final_block(out).view(out.shape[0], -1)
-
-
-if __name__ == "__main__":
-    Z_DIM = 100
-    IN_CHANNELS = 256
-    gen = Generator(Z_DIM, IN_CHANNELS, img_channels=3)
-    critic = Discriminator(Z_DIM, IN_CHANNELS, img_channels=3)
-
-    for img_size in [4, 8, 16, 32, 64, 128, 256, 512, 1024]:
-        num_steps = int(log2(img_size / 4))
-        x = torch.randn((1, Z_DIM, 1, 1))
-        z = gen(x, 0.5, steps=num_steps)
-        assert z.shape == (1, 3, img_size, img_size)
-        out = critic(z, alpha=0.5, steps=num_steps)
-        assert out.shape == (1, 1)
-        print(f"Success! At img size: {img_size}")
